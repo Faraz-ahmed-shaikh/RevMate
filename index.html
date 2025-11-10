@@ -1,0 +1,2314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RevMate - Ride Together</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+/* ============================================
+   REVMATE - STYLES (PHASE 1-5)
+   ============================================ */
+
+/* CSS Variables - Pastel Theme */
+:root {
+    --primary: #A8DADC;
+    --secondary: #FEC8D8;
+    --accent: #CDB4DB;
+    --background: #F7F7F7;
+    --text-dark: #333;
+    --success: #B8E0D2;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Dark Mode Variables */
+.dark-mode {
+    --background: #1e1e1e;
+    --text-dark: #f5f5f5;
+}
+
+.dark-mode body {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+}
+
+.dark-mode .auth-card,
+.dark-mode .action-card,
+.dark-mode .ride-card,
+.dark-mode .host-form,
+.dark-mode .my-ride-card,
+.dark-mode .community-card,
+.dark-mode .profile-card {
+    background: #2a2a2a;
+    color: #f5f5f5;
+}
+
+.dark-mode .form-control {
+    background: #3a3a3a;
+    border-color: #4a4a4a;
+    color: #f5f5f5;
+}
+
+.dark-mode .form-control:focus {
+    background: #3a3a3a;
+    border-color: var(--primary);
+    color: #f5f5f5;
+}
+
+.dark-mode .bottom-nav {
+    background: #2a2a2a;
+    border-top-color: #4a4a4a;
+}
+
+.dark-mode .tab-btn {
+    background: #2a2a2a;
+    border-color: #4a4a4a;
+    color: #aaa;
+}
+
+.dark-mode .tab-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    min-height: 100vh;
+    color: var(--text-dark);
+}
+
+/* ============================================
+   AUTHENTICATION SECTION (PHASE 1)
+   ============================================ */
+
+#auth-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-card {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px;
+    max-width: 420px;
+    width: 100%;
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Logo Section */
+.logo-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo-section h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 5px;
+}
+
+.logo-section p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Form Styles */
+.form-label {
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    border: 2px solid #E8E8E8;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(168, 218, 220, 0.25);
+}
+
+/* Button Styles */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(168, 218, 220, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Switch Mode */
+.switch-mode {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.switch-mode a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.switch-mode a:hover {
+    color: var(--primary);
+}
+
+/* ============================================
+   ALERT STYLES
+   ============================================ */
+
+.alert {
+    border-radius: 12px;
+    border: none;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-success {
+    background-color: var(--success);
+    color: #2d5f4f;
+}
+
+.alert-danger {
+    background-color: #ffd4d4;
+    color: #d63031;
+}
+
+/* ============================================
+   APP CONTAINER (PHASE 2)
+   ============================================ */
+
+#app-container {
+    min-height: 100vh;
+    padding-bottom: 80px;
+    background: var(--background);
+}
+
+/* App Sections */
+.app-section {
+    display: none;
+    min-height: calc(100vh - 80px);
+    padding: 20px 0;
+    animation: fadeIn 0.4s ease;
+}
+
+.app-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Section Header */
+.section-header {
+    text-align: center;
+    padding: 20px 15px;
+    margin-bottom: 20px;
+}
+
+.welcome-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.welcome-subtitle {
+    color: #666;
+    font-size: 1rem;
+}
+
+.section-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.section-header p {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* ============================================
+   HOME SECTION - QUICK ACTION CARDS
+   ============================================ */
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 0 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.action-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.action-card:active {
+    transform: translateY(-2px);
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.action-card:nth-child(1) .card-icon {
+    background: linear-gradient(135deg, #A8DADC, #89C5C8);
+    color: white;
+}
+
+.action-card:nth-child(2) .card-icon {
+    background: linear-gradient(135deg, #FEC8D8, #FDB0C5);
+    color: white;
+}
+
+.action-card:nth-child(3) .card-icon {
+    background: linear-gradient(135deg, #CDB4DB, #B89DC9);
+    color: white;
+}
+
+.action-card:nth-child(4) .card-icon {
+    background: linear-gradient(135deg, #B8E0D2, #9DD4C3);
+    color: white;
+}
+
+.action-card:nth-child(5) .card-icon {
+    background: linear-gradient(135deg, #FFD6A5, #FFC785);
+    color: white;
+}
+
+.action-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0 0 5px 0;
+}
+
+.action-card p {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0;
+}
+
+/* ============================================
+   PROFILE SECTION (PHASE 5)
+   ============================================ */
+
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.profile-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-card h6 {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.profile-card .form-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.btn-save {
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(205, 180, 219, 0.4);
+}
+
+.form-select {
+    border: 2px solid #E8E8E8;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(168, 218, 220, 0.25);
+}
+
+.form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.logout-section {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-logout {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 40px;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+/* ============================================
+   DISCOVER RIDES - RIDE CARDS (PHASE 3)
+   ============================================ */
+
+.ride-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 0 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ride-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.4s ease;
+}
+
+.ride-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.ride-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 12px;
+}
+
+.ride-card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.ride-card-host {
+    font-size: 0.85rem;
+    color: #999;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ride-card-host i {
+    color: var(--accent);
+}
+
+.ride-card-desc {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.ride-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.ride-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.ride-detail i {
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+.ride-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.ride-participants {
+    font-size: 0.85rem;
+    color: #999;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-join {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: none;
+    border-radius: 10px;
+    padding: 8px 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-join:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(168, 218, 220, 0.4);
+}
+
+.btn-join:disabled {
+    background: linear-gradient(135deg, var(--success), #a0d0c0);
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.btn-join:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* ============================================
+   HOST RIDE FORM (PHASE 3)
+   ============================================ */
+
+.host-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.host-form {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.host-form .form-control {
+    border: 2px solid #E8E8E8;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.host-form .form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(168, 218, 220, 0.25);
+}
+
+.host-form textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.btn-host {
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-host:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(205, 180, 219, 0.4);
+}
+
+/* ============================================
+   MY RIDES SECTION (PHASE 4)
+   ============================================ */
+
+.rides-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    padding: 0 15px;
+}
+
+.tab-btn {
+    background: white;
+    border: 2px solid #E8E8E8;
+    border-radius: 12px;
+    padding: 10px 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #666;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.tab-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    border-color: var(--accent);
+    color: white;
+}
+
+.my-rides-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 0 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.my-ride-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.4s ease;
+    position: relative;
+}
+
+.my-ride-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.ride-type-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.my-ride-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    padding-right: 80px;
+}
+
+.my-ride-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.my-ride-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.my-ride-detail i {
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+.my-ride-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.ride-status {
+    font-size: 0.85rem;
+    color: #999;
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    border: none;
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.empty-rides {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-rides i {
+    font-size: 3.5rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.empty-rides p {
+    font-size: 1rem;
+}
+
+/* ============================================
+   COMMUNITY SECTION (PHASE 4)
+   ============================================ */
+
+.community-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 0 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.community-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.4s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.community-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.community-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+}
+
+.community-info {
+    flex: 1;
+}
+
+.community-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.community-bike {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.community-bike i {
+    color: var(--accent);
+}
+
+.community-city {
+    font-size: 0.85rem;
+    color: #999;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.community-city i {
+    color: var(--primary);
+}
+
+.btn-follow {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: none;
+    border-radius: 10px;
+    padding: 8px 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-follow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(168, 218, 220, 0.4);
+}
+
+.btn-follow:disabled {
+    background: linear-gradient(135deg, var(--success), #a0d0c0);
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* Success alert for ride actions */
+.ride-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--success);
+    color: #2d5f4f;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    z-index: 2000;
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============================================
+   BOTTOM NAVIGATION BAR
+   ============================================ */
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #E8E8E8;
+    padding: 10px 0;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #999;
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    min-width: 60px;
+}
+
+.nav-item i {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+}
+
+.nav-item span {
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    color: var(--accent);
+}
+
+.nav-item.active {
+    color: var(--accent);
+}
+
+.nav-item.active i {
+    transform: scale(1.1);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.hidden {
+    display: none !important;
+}
+
+.placeholder-content {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.placeholder-content p {
+    margin-top: 20px;
+    font-size: 1rem;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 576px) {
+    .action-card {
+        padding: 16px;
+    }
+    
+    .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .action-card h3 {
+        font-size: 1rem;
+    }
+    
+    .action-card p {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .welcome-title {
+        font-size: 1.5rem;
+    }
+    
+    .nav-item {
+        font-size: 0.7rem;
+        min-width: 50px;
+    }
+    
+    .nav-item i {
+        font-size: 1.3rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+    }
+    
+    .action-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+    }
+    
+    .card-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+    
+    .ride-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .my-rides-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .community-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    #app-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .bottom-nav {
+        max-width: 1200px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 20px 20px 0 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 30px 20px;
+    }
+
+    .logo-section h1 {
+        font-size: 2rem;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Authentication Section -->
+    <section id="auth-section">
+        <div class="auth-card">
+            <div class="logo-section">
+                <h1>🏍️ RevMate</h1>
+                <p>Your riding companion</p>
+            </div>
+
+            <!-- Alert Container -->
+            <div id="alert-container"></div>
+
+            <!-- Login Form -->
+            <form id="login-form">
+                <div class="mb-3">
+                    <label for="login-email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="login-email" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="login-password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signup-form" class="hidden">
+                <div class="mb-3">
+                    <label for="signup-name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="signup-name" placeholder="Enter your name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="signup-email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="signup-email" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="signup-password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="signup-password" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+
+            <!-- Switch Mode -->
+            <div class="switch-mode">
+                <span id="switch-text">Don't have an account? <a id="switch-link">Sign Up</a></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="hidden">
+        
+        <!-- Home Section -->
+        <section id="home" class="app-section active">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="welcome-title">Welcome, <span id="user-name-home">Rider</span> 👋</h2>
+                    <p class="welcome-subtitle">Your next adventure starts here</p>
+                </div>
+
+                <div class="quick-actions">
+                    <div class="action-card" data-section="discover">
+                        <div class="card-icon">
+                            <i class="bi bi-map"></i>
+                        </div>
+                        <div>
+                            <h3>Discover Rides</h3>
+                            <p>Find exciting routes and fellow riders</p>
+                        </div>
+                    </div>
+
+                    <div class="action-card" data-section="host">
+                        <div class="card-icon">
+                            <i class="bi bi-plus-circle"></i>
+                        </div>
+                        <div>
+                            <h3>Host a Ride</h3>
+                            <p>Organize your own riding adventure</p>
+                        </div>
+                    </div>
+
+                    <div class="action-card" data-section="myrides">
+                        <div class="card-icon">
+                            <i class="bi bi-list-check"></i>
+                        </div>
+                        <div>
+                            <h3>My Rides</h3>
+                            <p>Track your upcoming and past rides</p>
+                        </div>
+                    </div>
+
+                    <div class="action-card" data-section="community">
+                        <div class="card-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <div>
+                            <h3>Community</h3>
+                            <p>Connect with bikers in your area</p>
+                        </div>
+                    </div>
+
+                    <div class="action-card" data-section="profile">
+                        <div class="card-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <div>
+                            <h3>Profile</h3>
+                            <p>Manage your account and settings</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discover Section -->
+        <section id="discover" class="app-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Discover Rides 🗺️</h2>
+                    <p>Find your next adventure</p>
+                </div>
+                
+                <div id="ride-list" class="ride-list"></div>
+                
+                <div id="empty-state" class="placeholder-content hidden">
+                    <i class="bi bi-inbox" style="font-size: 4rem; color: var(--primary);"></i>
+                    <p>No rides available yet. Be the first to host one!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Host Section -->
+        <section id="host" class="app-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Host a Ride 🏍️</h2>
+                    <p>Create your own adventure</p>
+                </div>
+                
+                <div class="host-form-container">
+                    <form id="hostRideForm" class="host-form">
+                        <div class="mb-3">
+                            <label for="rideTitle" class="form-label">Ride Title</label>
+                            <input type="text" id="rideTitle" class="form-control" placeholder="e.g., Sunday Coastal Cruise" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="rideDesc" class="form-label">Description</label>
+                            <textarea id="rideDesc" class="form-control" rows="3" placeholder="Tell riders about this adventure..." required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="rideStart" class="form-label">Start Location</label>
+                            <input type="text" id="rideStart" class="form-control" placeholder="e.g., Bandra Fort, Mumbai" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="rideDest" class="form-label">Destination</label>
+                            <input type="text" id="rideDest" class="form-control" placeholder="e.g., Alibaug Beach" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="rideDate" class="form-label">Date & Time</label>
+                            <input type="datetime-local" id="rideDate" class="form-control" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-host w-100">
+                            <i class="bi bi-plus-circle me-2"></i>Create Ride
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Rides Section -->
+        <section id="myrides" class="app-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>My Rides 📋</h2>
+                    <p>Your riding history</p>
+                </div>
+                
+                <div class="rides-tabs">
+                    <button class="tab-btn active" id="btnHosted" data-tab="hosted">
+                        <i class="bi bi-flag-fill me-2"></i>Hosted
+                    </button>
+                    <button class="tab-btn" id="btnJoined" data-tab="joined">
+                        <i class="bi bi-check-circle-fill me-2"></i>Joined
+                    </button>
+                </div>
+                
+                <div id="myRidesContainer" class="my-rides-container"></div>
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section id="community" class="app-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Community 👥</h2>
+                    <p>Connect with riders</p>
+                </div>
+                
+                <div id="communityList" class="community-list"></div>
+                
+                <div id="community-empty-state" class="placeholder-content hidden">
+                    <i class="bi bi-people" style="font-size: 4rem; color: var(--primary);"></i>
+                    <p>No riders in your area yet</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section (PHASE 5) -->
+        <section id="profile" class="app-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Profile ⚙️</h2>
+                    <p>Manage your account</p>
+                </div>
+                
+                <div class="profile-container">
+                    <!-- User Information -->
+                    <div class="profile-card">
+                        <h6>User Information</h6>
+                        <div class="mb-3">
+                            <label for="profileName" class="form-label">Name</label>
+                            <input type="text" id="profileName" class="form-control" placeholder="Your name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="profileEmail" class="form-label">Email</label>
+                            <input type="email" id="profileEmail" class="form-control" disabled>
+                        </div>
+                        <button id="saveProfile" class="btn btn-save w-100">Save Changes</button>
+                    </div>
+
+                    <!-- Theme Customization -->
+                    <div class="profile-card">
+                        <h6>Theme Customization</h6>
+                        <div class="mb-3">
+                            <label for="themeSelect" class="form-label">Accent Color</label>
+                            <select id="themeSelect" class="form-select">
+                                <option value="#A8DADC">Mint</option>
+                                <option value="#FEC8D8">Blush</option>
+                                <option value="#CDB4DB">Lavender</option>
+                                <option value="#B8E0D2">Seafoam</option>
+                            </select>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                            <label class="form-check-label" for="darkModeToggle">Dark Mode</label>
+                        </div>
+                        <button id="saveTheme" class="btn btn-save w-100">Save Theme</button>
+                    </div>
+
+                    <!-- Logout -->
+                    <div class="logout-section">
+                        <button id="logoutBtn" class="btn btn-logout">
+                            <i class="bi bi-box-arrow-right me-2"></i>Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active" data-section="home">
+                <i class="bi bi-house-fill"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" data-section="discover">
+                <i class="bi bi-map"></i>
+                <span>Discover</span>
+            </a>
+            <a href="#" class="nav-item" data-section="host">
+                <i class="bi bi-plus-circle"></i>
+                <span>Host</span>
+            </a>
+            <a href="#" class="nav-item" data-section="myrides">
+                <i class="bi bi-list-check"></i>
+                <span>My Rides</span>
+            </a>
+            <a href="#" class="nav-item" data-section="profile">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+// ============================================
+// REVMATE - JAVASCRIPT (PHASES 1-5)
+// ============================================
+
+let isLoginMode = true;
+
+// ============================================
+// UTILITY FUNCTIONS
+// ============================================
+
+function getData(key) {
+    const data = localStorage.getItem(key);
+    if (!data) return key === 'users' ? [] : null;
+    return JSON.parse(data);
+}
+
+function saveData(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
+function showAlert(message, type = 'success') {
+    const alertContainer = document.getElementById('alert-container');
+    if (!alertContainer) return;
+    
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${type}`;
+    alert.textContent = message;
+    alertContainer.innerHTML = '';
+    alertContainer.appendChild(alert);
+
+    setTimeout(() => {
+        alert.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => alert.remove(), 300);
+    }, 3000);
+}
+
+function showRideAlert(message) {
+    const existingAlert = document.querySelector('.ride-alert');
+    if (existingAlert) existingAlert.remove();
+    
+    const alert = document.createElement('div');
+    alert.className = 'ride-alert';
+    alert.textContent = message;
+    document.body.appendChild(alert);
+    
+    setTimeout(() => {
+        alert.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => alert.remove(), 300);
+    }, 2500);
+}
+
+// ============================================
+// THEME MANAGEMENT (PHASE 5)
+// ============================================
+
+function applySavedTheme() {
+    const themeSettings = getData('themeSettings');
+    
+    if (themeSettings) {
+        // Apply accent color
+        if (themeSettings.accent) {
+            document.documentElement.style.setProperty('--accent', themeSettings.accent);
+        }
+        
+        // Apply dark mode
+        if (themeSettings.darkMode) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    }
+}
+
+function saveThemeSettings() {
+    const accent = document.getElementById('themeSelect').value;
+    const darkMode = document.getElementById('darkModeToggle').checked;
+    
+    const themeSettings = {
+        accent: accent,
+        darkMode: darkMode
+    };
+    
+    saveData('themeSettings', themeSettings);
+    
+    // Apply immediately
+    document.documentElement.style.setProperty('--accent', accent);
+    
+    if (darkMode) {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+    
+    showRideAlert('Theme saved successfully!');
+}
+
+function loadProfileData() {
+    const currentUser = getData('currentUser');
+    
+    if (currentUser) {
+        document.getElementById('profileName').value = currentUser.name || '';
+        document.getElementById('profileEmail').value = currentUser.email || '';
+    }
+    
+    // Load theme settings
+    const themeSettings = getData('themeSettings');
+    if (themeSettings) {
+        document.getElementById('themeSelect').value = themeSettings.accent || '#A8DADC';
+        document.getElementById('darkModeToggle').checked = themeSettings.darkMode || false;
+    }
+}
+
+function saveProfileData() {
+    const currentUser = getData('currentUser');
+    
+    if (!currentUser) return;
+    
+    const newName = document.getElementById('profileName').value.trim();
+    
+    if (!newName) {
+        showRideAlert('Please enter a valid name');
+        return;
+    }
+    
+    // Update current user
+    currentUser.name = newName;
+    saveData('currentUser', currentUser);
+    
+    // Update in users array
+    const users = getData('users');
+    const userIndex = users.findIndex(u => u.id === currentUser.id);
+    if (userIndex !== -1) {
+        users[userIndex].name = newName;
+        saveData('users', users);
+    }
+    
+    // Update name display in home
+    const userNameHome = document.getElementById('user-name-home');
+    if (userNameHome) {
+        userNameHome.textContent = newName;
+    }
+    
+    showRideAlert('Profile updated successfully!');
+}
+
+// ============================================
+// RIDES DATA MANAGEMENT
+// ============================================
+
+const defaultRides = [
+    {
+        id: 1,
+        title: "Sunday Coastal Cruise",
+        desc: "Easy scenic ride by the sea. Perfect for beginners and experienced riders alike.",
+        start: "Bandra Fort, Mumbai",
+        dest: "Alibaug Beach",
+        date: "2025-11-15T07:00",
+        host: "Admin",
+        hostId: 0,
+        joinedUsers: []
+    },
+    {
+        id: 2,
+        title: "Mountain Rush",
+        desc: "Twisties and tea stops through the hills. Bring your A-game!",
+        start: "Pune Camp",
+        dest: "Lavasa Lake City",
+        date: "2025-11-17T06:30",
+        host: "Admin",
+        hostId: 0,
+        joinedUsers: []
+    },
+    {
+        id: 3,
+        title: "Weekend Highway Blast",
+        desc: "High-speed highway cruise with breakfast stop at famous dhaba.",
+        start: "Vashi, Navi Mumbai",
+        dest: "Lonavala",
+        date: "2025-11-16T05:30",
+        host: "Admin",
+        hostId: 0,
+        joinedUsers: []
+    }
+];
+
+function getRides() {
+    let rides = getData('rides');
+    
+    if (!rides || rides.length === 0) {
+        rides = defaultRides;
+        saveRides(rides);
+    }
+    
+    return rides;
+}
+
+function saveRides(rides) {
+    saveData('rides', rides);
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { 
+        weekday: 'short', 
+        month: 'short', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit'
+    };
+    return date.toLocaleDateString('en-IN', options);
+}
+
+// ============================================
+// DISCOVER RIDES
+// ============================================
+
+function renderRides() {
+    const rideList = document.getElementById('ride-list');
+    const emptyState = document.getElementById('empty-state');
+    
+    if (!rideList) return;
+    
+    const rides = getRides();
+    const currentUser = getData('currentUser');
+    
+    if (rides.length === 0) {
+        rideList.innerHTML = '';
+        if (emptyState) emptyState.classList.remove('hidden');
+        return;
+    }
+    
+    if (emptyState) emptyState.classList.add('hidden');
+    
+    rides.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    rideList.innerHTML = rides.map(ride => {
+        const isJoined = currentUser && ride.joinedUsers.includes(currentUser.id);
+        const isHost = currentUser && ride.hostId === currentUser.id;
+        const participantCount = ride.joinedUsers.length;
+        
+        return `
+            <div class="ride-card">
+                <div class="ride-card-header">
+                    <h3 class="ride-card-title">${ride.title}</h3>
+                    <div class="ride-card-host">
+                        <i class="bi bi-person-circle"></i>
+                        <span>${ride.host}</span>
+                    </div>
+                </div>
+                
+                <p class="ride-card-desc">${ride.desc}</p>
+                
+                <div class="ride-card-details">
+                    <div class="ride-detail">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>${ride.start} → ${ride.dest}</span>
+                    </div>
+                    <div class="ride-detail">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>${formatDate(ride.date)}</span>
+                    </div>
+                </div>
+                
+                <div class="ride-card-footer">
+                    <div class="ride-participants">
+                        <i class="bi bi-people-fill"></i>
+                        <span>${participantCount} joined</span>
+                    </div>
+                    ${isHost ? 
+                        '<button class="btn-join" disabled>Your Ride</button>' :
+                        `<button class="btn-join" data-ride-id="${ride.id}" ${isJoined ? 'disabled' : ''}>
+                            ${isJoined ? '✓ Joined' : 'Join Ride'}
+                        </button>`
+                    }
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    const joinButtons = rideList.querySelectorAll('.btn-join:not([disabled])');
+    joinButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const rideId = parseInt(button.getAttribute('data-ride-id'));
+            joinRide(rideId);
+        });
+    });
+}
+
+function joinRide(rideId) {
+    const currentUser = getData('currentUser');
+    
+    if (!currentUser) {
+        showRideAlert('Please login to join rides');
+        return;
+    }
+    
+    const rides = getRides();
+    const ride = rides.find(r => r.id === rideId);
+    
+    if (!ride) {
+        showRideAlert('Ride not found');
+        return;
+    }
+    
+    if (ride.joinedUsers.includes(currentUser.id)) {
+        showRideAlert('You already joined this ride');
+        return;
+    }
+    
+    ride.joinedUsers.push(currentUser.id);
+    saveRides(rides);
+    renderRides();
+    showRideAlert(`You've joined "${ride.title}"!`);
+}
+
+// ============================================
+// HOST RIDE
+// ============================================
+
+function initHostRideForm() {
+    const hostForm = document.getElementById('hostRideForm');
+    
+    if (!hostForm) return;
+    
+    hostForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const currentUser = getData('currentUser');
+        
+        if (!currentUser) {
+            showRideAlert('Please login to host rides');
+            return;
+        }
+        
+        const title = document.getElementById('rideTitle').value.trim();
+        const desc = document.getElementById('rideDesc').value.trim();
+        const start = document.getElementById('rideStart').value.trim();
+        const dest = document.getElementById('rideDest').value.trim();
+        const date = document.getElementById('rideDate').value;
+        
+        if (!title || !desc || !start || !dest || !date) {
+            showRideAlert('Please fill in all fields');
+            return;
+        }
+        
+        const newRide = {
+            id: Date.now(),
+            title: title,
+            desc: desc,
+            start: start,
+            dest: dest,
+            date: date,
+            host: currentUser.name,
+            hostId: currentUser.id,
+            joinedUsers: []
+        };
+        
+        const rides = getRides();
+        rides.push(newRide);
+        saveRides(rides);
+        
+        hostForm.reset();
+        showRideAlert('Ride created successfully!');
+        
+        setTimeout(() => {
+            showSection('discover');
+        }, 1000);
+    });
+}
+
+// ============================================
+// MY RIDES
+// ============================================
+
+let currentRideTab = 'hosted';
+
+function renderMyRides(type = 'hosted') {
+    const container = document.getElementById('myRidesContainer');
+    if (!container) return;
+    
+    currentRideTab = type;
+    const rides = getRides();
+    const currentUser = getData('currentUser');
+    
+    if (!currentUser) {
+        container.innerHTML = '<div class="empty-rides"><p>Please login to view your rides</p></div>';
+        return;
+    }
+    
+    let filteredRides = [];
+    
+    if (type === 'hosted') {
+        filteredRides = rides.filter(r => r.hostId === currentUser.id);
+    } else {
+        filteredRides = rides.filter(r => r.joinedUsers.includes(currentUser.id));
+    }
+    
+    if (filteredRides.length === 0) {
+        const emptyMessage = type === 'hosted' 
+            ? 'You haven\'t hosted any rides yet. Create one from the Host section!'
+            : 'You haven\'t joined any rides yet. Explore the Discover section!';
+        
+        container.innerHTML = `
+            <div class="empty-rides">
+                <i class="bi bi-${type === 'hosted' ? 'flag' : 'calendar-x'}"></i>
+                <p>${emptyMessage}</p>
+            </div>
+        `;
+        return;
+    }
+    
+    filteredRides.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    container.innerHTML = filteredRides.map(ride => {
+        const badge = type === 'hosted' 
+            ? '<span class="ride-type-badge"><i class="bi bi-flag-fill"></i> Hosted</span>'
+            : '<span class="ride-type-badge" style="background: linear-gradient(135deg, var(--success), var(--primary));"><i class="bi bi-check-circle-fill"></i> Joined</span>';
+        
+        const deleteBtn = type === 'hosted'
+            ? `<button class="btn-delete" data-ride-id="${ride.id}">
+                <i class="bi bi-trash"></i> Delete
+               </button>`
+            : '';
+        
+        return `
+            <div class="my-ride-card">
+                ${badge}
+                <h3 class="my-ride-card-title">${ride.title}</h3>
+                
+                <div class="my-ride-card-details">
+                    <div class="my-ride-detail">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>${ride.start} → ${ride.dest}</span>
+                    </div>
+                    <div class="my-ride-detail">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>${formatDate(ride.date)}</span>
+                    </div>
+                    ${type === 'joined' ? `
+                        <div class="my-ride-detail">
+                            <i class="bi bi-person-circle"></i>
+                            <span>Host: ${ride.host}</span>
+                        </div>
+                    ` : ''}
+                </div>
+                
+                <div class="my-ride-card-footer">
+                    <div class="ride-status">
+                        <i class="bi bi-people-fill"></i>
+                        ${ride.joinedUsers.length} rider${ride.joinedUsers.length !== 1 ? 's' : ''} joined
+                    </div>
+                    ${deleteBtn}
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    if (type === 'hosted') {
+        const deleteButtons = container.querySelectorAll('.btn-delete');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const rideId = parseInt(button.getAttribute('data-ride-id'));
+                deleteRide(rideId);
+            });
+        });
+    }
+}
+
+function deleteRide(rideId) {
+    const currentUser = getData('currentUser');
+    if (!currentUser) return;
+    
+    const rides = getRides();
+    const rideIndex = rides.findIndex(r => r.id === rideId && r.hostId === currentUser.id);
+    
+    if (rideIndex === -1) {
+        showRideAlert('Cannot delete this ride');
+        return;
+    }
+    
+    const deletedRide = rides.splice(rideIndex, 1)[0];
+    saveRides(rides);
+    renderMyRides('hosted');
+    showRideAlert(`"${deletedRide.title}" deleted successfully`);
+}
+
+function initMyRidesTabs() {
+    const hostedBtn = document.getElementById('btnHosted');
+    const joinedBtn = document.getElementById('btnJoined');
+    
+    if (!hostedBtn || !joinedBtn) return;
+    
+    hostedBtn.addEventListener('click', () => {
+        hostedBtn.classList.add('active');
+        joinedBtn.classList.remove('active');
+        renderMyRides('hosted');
+    });
+    
+    joinedBtn.addEventListener('click', () => {
+        joinedBtn.classList.add('active');
+        hostedBtn.classList.remove('active');
+        renderMyRides('joined');
+    });
+}
+
+// ============================================
+// COMMUNITY
+// ============================================
+
+const defaultCommunity = [
+    { id: 1001, name: "Aarav Sharma", bike: "Royal Enfield Classic 350", city: "Pune, Maharashtra" },
+    { id: 1002, name: "Karan Mehta", bike: "KTM Duke 200", city: "Mumbai, Maharashtra" },
+    { id: 1003, name: "Priya Singh", bike: "Yamaha MT-15", city: "Delhi" },
+    { id: 1004, name: "Simran Kaur", bike: "BMW G310R", city: "Bangalore, Karnataka" },
+    { id: 1005, name: "Rohan Desai", bike: "Bajaj Dominar 400", city: "Ahmedabad, Gujarat" },
+    { id: 1006, name: "Ananya Iyer", bike: "Honda CB350", city: "Chennai, Tamil Nadu" },
+    { id: 1007, name: "Vikram Reddy", bike: "Triumph Street Triple", city: "Hyderabad, Telangana" },
+    { id: 1008, name: "Neha Patel", bike: "Kawasaki Ninja 300", city: "Surat, Gujarat" }
+];
+
+function getCommunity() {
+    let community = getData('community');
+    
+    if (!community || community.length === 0) {
+        community = defaultCommunity;
+        saveCommunity(community);
+    }
+    
+    return community;
+}
+
+function saveCommunity(community) {
+    saveData('community', community);
+}
+
+function getAvatarColor(name) {
+    const colors = [
+        'linear-gradient(135deg, #A8DADC, #89C5C8)',
+        'linear-gradient(135deg, #FEC8D8, #FDB0C5)',
+        'linear-gradient(135deg, #CDB4DB, #B89DC9)',
+        'linear-gradient(135deg, #B8E0D2, #9DD4C3)',
+        'linear-gradient(135deg, #FFD6A5, #FFC785)',
+        'linear-gradient(135deg, #CAFFBF, #B3F0A8)'
+    ];
+    
+    const index = name.charCodeAt(0) % colors.length;
+    return colors[index];
+}
+
+function renderCommunity() {
+    const container = document.getElementById('communityList');
+    const emptyState = document.getElementById('community-empty-state');
+    
+    if (!container) return;
+    
+    const community = getCommunity();
+    const currentUser = getData('currentUser');
+    
+    if (!currentUser) {
+        container.innerHTML = '<div class="empty-rides"><p>Please login to view community</p></div>';
+        return;
+    }
+    
+    if (!currentUser.following) {
+        currentUser.following = [];
+        saveData('currentUser', currentUser);
+    }
+    
+    if (community.length === 0) {
+        container.innerHTML = '';
+        if (emptyState) emptyState.classList.remove('hidden');
+        return;
+    }
+    
+    if (emptyState) emptyState.classList.add('hidden');
+    
+    container.innerHTML = community.map(member => {
+        const isFollowing = currentUser.following.includes(member.id);
+        const initials = member.name.split(' ').map(n => n[0]).join('').substring(0, 2);
+        
+        return `
+            <div class="community-card">
+                <div class="community-avatar" style="background: ${getAvatarColor(member.name)}">
+                    ${initials}
+                </div>
+                
+                <div class="community-info">
+                    <h3 class="community-name">${member.name}</h3>
+                    <p class="community-bike">
+                        <i class="bi bi-bicycle"></i>
+                        ${member.bike}
+                    </p>
+                    <p class="community-city">
+                        <i class="bi bi-geo-alt"></i>
+                        ${member.city}
+                    </p>
+                </div>
+                
+                <button class="btn-follow" data-member-id="${member.id}" ${isFollowing ? 'disabled' : ''}>
+                    ${isFollowing ? '<i class="bi bi-check-circle-fill"></i> Following' : '<i class="bi bi-plus-circle"></i> Follow'}
+                </button>
+            </div>
+        `;
+    }).join('');
+    
+    const followButtons = container.querySelectorAll('.btn-follow:not([disabled])');
+    followButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const memberId = parseInt(button.getAttribute('data-member-id'));
+            followMember(memberId);
+        });
+    });
+}
+
+function followMember(memberId) {
+    const currentUser = getData('currentUser');
+    
+    if (!currentUser) {
+        showRideAlert('Please login to follow riders');
+        return;
+    }
+    
+    const community = getCommunity();
+    const member = community.find(m => m.id === memberId);
+    
+    if (!member) {
+        showRideAlert('Member not found');
+        return;
+    }
+    
+    if (!currentUser.following) {
+        currentUser.following = [];
+    }
+    
+    if (currentUser.following.includes(memberId)) {
+        showRideAlert('Already following this rider');
+        return;
+    }
+    
+    currentUser.following.push(memberId);
+    saveData('currentUser', currentUser);
+    renderCommunity();
+    showRideAlert(`Now following ${member.name}!`);
+}
+
+// ============================================
+// AUTH MODE SWITCHING
+// ============================================
+
+function toggleAuthMode() {
+    isLoginMode = !isLoginMode;
+    
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const switchText = document.getElementById('switch-text');
+    
+    if (isLoginMode) {
+        signupForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+        switchText.innerHTML = 'Don\'t have an account? <a id="switch-link">Sign Up</a>';
+    } else {
+        loginForm.classList.add('hidden');
+        signupForm.classList.remove('hidden');
+        switchText.innerHTML = 'Already have an account? <a id="switch-link">Login</a>';
+    }
+    
+    document.getElementById('switch-link').addEventListener('click', toggleAuthMode);
+    document.getElementById('alert-container').innerHTML = '';
+}
+
+// ============================================
+// SIGNUP LOGIC
+// ============================================
+
+document.getElementById('signup-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById('signup-name').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value.trim();
+
+    if (!name || !email || !password) {
+        showAlert('Please fill in all fields', 'danger');
+        return;
+    }
+
+    const users = getData('users');
+    const emailExists = users.some(user => user.email === email);
+    
+    if (emailExists) {
+        showAlert('Email already registered. Please login.', 'danger');
+        return;
+    }
+
+    const newUser = {
+        id: Date.now(),
+        name: name,
+        email: email,
+        password: password,
+        following: []
+    };
+
+    users.push(newUser);
+    saveData('users', users);
+
+    const currentUser = {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        following: []
+    };
+    saveData('currentUser', currentUser);
+
+    showAlert('Account created successfully!', 'success');
+    
+    setTimeout(() => {
+        redirectToApp();
+    }, 1000);
+});
+
+// ============================================
+// LOGIN LOGIC
+// ============================================
+
+document.getElementById('login-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value.trim();
+
+    if (!email || !password) {
+        showAlert('Please fill in all fields', 'danger');
+        return;
+    }
+
+    const users = getData('users');
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        const currentUser = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            following: user.following || []
+        };
+        saveData('currentUser', currentUser);
+
+        showAlert('Login successful!', 'success');
+        
+        setTimeout(() => {
+            redirectToApp();
+        }, 800);
+    } else {
+        showAlert('Invalid email or password', 'danger');
+    }
+});
+
+// ============================================
+// REDIRECT TO APP
+// ============================================
+
+function redirectToApp() {
+    const currentUser = getData('currentUser');
+    
+    if (currentUser && currentUser.name) {
+        const userNameHome = document.getElementById('user-name-home');
+        if (userNameHome) {
+            userNameHome.textContent = currentUser.name;
+        }
+        
+        document.getElementById('auth-section').classList.add('hidden');
+        document.getElementById('app-container').classList.remove('hidden');
+        
+        initNavigation();
+    }
+}
+
+// ============================================
+// NAVIGATION SYSTEM
+// ============================================
+
+function showSection(sectionId) {
+    const allSections = document.querySelectorAll('.app-section');
+    allSections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+    
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('data-section') === sectionId) {
+            item.classList.add('active');
+        }
+    });
+    
+    saveData('lastSection', sectionId);
+    
+    if (sectionId === 'discover') {
+        renderRides();
+    } else if (sectionId === 'myrides') {
+        renderMyRides(currentRideTab);
+    } else if (sectionId === 'community') {
+        renderCommunity();
+    } else if (sectionId === 'profile') {
+        loadProfileData();
+    }
+}
+
+function initNavigation() {
+    const navItems = document.querySelectorAll('.nav-item');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sectionId = item.getAttribute('data-section');
+            showSection(sectionId);
+        });
+    });
+    
+    const actionCards = document.querySelectorAll('.action-card');
+    actionCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const sectionId = card.getAttribute('data-section');
+            showSection(sectionId);
+        });
+    });
+    
+    initHostRideForm();
+    initMyRidesTabs();
+    
+    const lastSection = getData('lastSection');
+    if (lastSection) {
+        showSection(lastSection);
+    } else {
+        showSection('home');
+    }
+}
+
+// ============================================
+// LOGOUT LOGIC (PHASE 5)
+// ============================================
+
+function logoutUser() {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('lastSection');
+    
+    document.getElementById('login-form').reset();
+    document.getElementById('signup-form').reset();
+    
+    document.getElementById('app-container').classList.add('hidden');
+    document.getElementById('auth-section').classList.remove('hidden');
+    
+    if (!isLoginMode) {
+        toggleAuthMode();
+    }
+    
+    showAlert('Logged out successfully', 'success');
+}
+
+// ============================================
+// INITIALIZATION
+// ============================================
+
+function initApp() {
+    // Apply saved theme on load
+    applySavedTheme();
+    
+    const currentUser = getData('currentUser');
+    
+    if (currentUser && currentUser.name) {
+        redirectToApp();
+    } else {
+        document.getElementById('auth-section').classList.remove('hidden');
+        document.getElementById('app-container').classList.add('hidden');
+    }
+    
+    // Initialize Profile section event listeners
+    const saveProfileBtn = document.getElementById('saveProfile');
+    if (saveProfileBtn) {
+        saveProfileBtn.addEventListener('click', saveProfileData);
+    }
+    
+    const saveThemeBtn = document.getElementById('saveTheme');
+    if (saveThemeBtn) {
+        saveThemeBtn.addEventListener('click', saveThemeSettings);
+    }
+    
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', logoutUser);
+    }
+}
+
+// Initialize switch link
+const switchLink = document.getElementById('switch-link');
+if (switchLink) {
+    switchLink.addEventListener('click', toggleAuthMode);
+}
+
+// Apply theme on load
+window.addEventListener('load', applySavedTheme);
+
+// Run initialization
+initApp();
+
+// ============================================
+// END OF SCRIPT
+// ============================================
+    </script>
+</body>
+</html>
